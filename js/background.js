@@ -65,7 +65,6 @@ function make_popcorn() {
 			});
 		pop_time != 0.0
   }).fail(function(data) {
-		alert("Error!");
     if('error' in data) {
       switch(data['error_type']) {
         case 'busy':
@@ -74,7 +73,9 @@ function make_popcorn() {
         default:
           console.log('Unrecognized error type: ' + data['error_type']);
       }
-    }
+    } else {
+			alert("Error: " + data);
+		}
   });
 }
 

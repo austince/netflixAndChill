@@ -19,10 +19,9 @@
         "js": ["js/jquery-2.1.4.min.js", "js/content.js"]
     }
   ], 
-  "permissions": ["activeTab", 
+  "permissions": ["storage",
     "https://www.netflix.com/*", 
-    "http://www.netflix.com/*", 
-    "<all_urls>"
+    "http://www.netflix.com/*"
     ],
   "background": {
     "scripts": ["js/jquery-2.1.4.min.js", "js/background.js"]
