@@ -70,8 +70,6 @@ function make_popcorn() {
         case 'busy':
 					alert("Popcorn maker is busy dog!");
           break;
-        default:
-          console.log('Unrecognized error type: ' + data['error_type']);
       }
     } else {
 			alert("Error: " + data);
