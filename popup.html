@@ -2,14 +2,20 @@
 <html>
   <head>
     <title>Netflix and Chill</title>
+		<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles.css"/>
+    <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/main.js"></script>
   </head>
   <body>
     <h1>Netflix and Chill</h1>
     <section>
-      <input id="popcorn_check" type="checkbox" value="checked" checked>Bring popcorn on watch?<br>
-      <progress id="progress" value="0" max="100" hidden></progress>
+      <label id="check_label" for="popcorn_check">Popcorn on watch?</label>
+      <input id="popcorn_check" name="popcorn_check" type="checkbox" value="checked" checked/><br/>
+			<article id="progress_wrapper" hidden>
+				<label id="progress_label" for="progress">Almost there!</label>
+				<progress id="progress" value="0" max="100"></progress>
+			</article>
     </section>
   </body>
 </html>

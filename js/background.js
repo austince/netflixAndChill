@@ -1,8 +1,5 @@
 /**
- * Listens for the app launching, then creates the window.
  *
- * @see http://developer.chrome.com/apps/app.runtime.html
- * @see http://developer.chrome.com/apps/app.window.html
  */
 var server_addr = 'http://155.246.204.55:8000';
 var make_endpoint = '/make';
@@ -10,14 +7,36 @@ var time_endpoint = '/time';
 var message_key = 'message';
 var pop_time_key = 'pop_time';
  
-var pop_port = chrome.runtime.connect({name:"pop_channel"});
+var time_left = 0.0;
+var pop_time = 0.0;
 
-function update_progress(time_left) {
-  alert("Progress: " + time_left);
+var port = null;
+
+chrome.extension.onConnect.addListener(function(port) {
+	this.port = port;
+	if (port.name == "pop_port") {
+		// Update the progress every time the popup window connects
+		update_progress();
+	}
+});
+
+function update_time_left() {
+  time_left = get_time_until_done();
+}
+
+function update_progress() {
+	if (pop_time != 0.0) {
+		var prog_percent = parseInt(((pop_time-time_left)/pop_time) * 100);
+		port.postMessage({
+			type: "update_pop_progress",
+			progress: prog_percent
+		});
+	}
 }
 
 function get_time_until_done() {
   var time = 0.0;
+  // Wait for the response to come back ya know
   $.ajax({
      async: false,
      type: 'GET',
@@ -26,31 +45,38 @@ function get_time_until_done() {
           time = data;
      }
   }).fail(function(data) {
-    alert("Connet the pi, guy!");
+    alert("Connet the pop pi, guy!");
   });
   return time;
 }
 
 function make_popcorn() {
   $.post(server_addr + make_endpoint, function(data) {
+		alert("Success!");
       //alert("Bringing you popcorn in T-Minus " + data.pop_time + " seconds dog!");
-      var time_left = get_time_until_done();
+      update_time_left();
       while(time_left > 0) {
-        update_progress(time_left);
-        time_left = get_time_until_done();
+        // In an effort to not incessently pound the pi with requests
+        // Updates every half second
+        setTimeout(update_time_left, 500);
       }
+			chrome.extension.sendMessage({
+				type: "popcorn_finished"
+			});
+		pop_time != 0.0
   }).fail(function(data) {
+		alert("Error!");
     if('error' in data) {
       switch(data['error_type']) {
         case 'busy':
+					alert("Popcorn maker is busy dog!");
           break;
         default:
           console.log('Unrecognized error type: ' + data['error_type']);
       }
     }
-  }); 
+  });
 }
-
 
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -58,8 +84,6 @@ chrome.extension.onMessage.addListener(
       case "make_popcorn":
         make_popcorn();
         break;
-      default:
-        console.log('Unrecognized request type: ' + data['error_type']);
     }
   }
 );

@@ -1,4 +1,10 @@
 /* CSS file placeholder. */
+* {
+	font-family: "Inconsolata", monospace, sans-serif;
+	text-align: center;
+}
 section {
-  
+  width: auto;
+  white-space: nowrap;
+	margin: 10px;
 }
