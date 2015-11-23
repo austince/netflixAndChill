@@ -1,7 +1,7 @@
 /**
  * @author austin
  */
-var server_addr = 'http://155.246.204.55:8000';
+var server_addr = 'http://155.246.204.109:8000';
 var make_endpoint = '/make';
 var time_endpoint = '/time';
 var message_key = 'message';
