@@ -1,5 +1,5 @@
 /**
-*
+* @author austin
 */
 var port = chrome.extension.connect({name: "pop_port"});
 
@@ -32,6 +32,6 @@ function update_progress(progress) {
 	$("#progress_wrapper").show();
 	var bar = document.getElementById("progress"); // Don't like jQuery value getting
 	var current_value = bar.value;
-	bar.value = progress;
+	bar.value = parseInt(progress);
 }
 

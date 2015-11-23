@@ -1,6 +1,7 @@
 /** 
+ * @author austin
+ *
  * What is injected into the netflix watch page
- * 
  */
 
 window.addEventListener("load", function() {
@@ -9,6 +10,9 @@ window.addEventListener("load", function() {
   // Check if the make setting is on
 	chrome.storage.sync.get({
 		// Defaults to true
+		// Not a great user expirience, might want to ask them each time if they
+		// want theee popcorn
+		// But sidenote: you're a sinner if ya don't
 		pop_on_watch: true
 	}, function(items) {
 		if (items.pop_on_watch) {

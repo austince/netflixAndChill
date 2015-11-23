@@ -21,7 +21,8 @@
   ], 
   "permissions": ["storage",
     "https://www.netflix.com/*", 
-    "http://www.netflix.com/*"
+    "http://www.netflix.com/*",
+									"<all_urls>"
     ],
   "background": {
     "scripts": ["js/jquery-2.1.4.min.js", "js/background.js"]
