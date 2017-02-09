@@ -3,7 +3,7 @@ Just a silly chrome extension to make popcorn when you start a binge sesh.
 Will bring it right to you. And clean up. Eventually.
 
 ## Flow: 
-- You watches Netflix Chrome sends a [server](https://github.com/austince/pop) running on a local raspi a requests to make popcorn.
+- You watch Netflix, Chrome sends a [server](https://github.com/austince/pop) running on a local raspi a requests to make popcorn.
 - The raspi, connected via GPIO controlled relay, starts up a popcorn maker
 - The popcorn maker pops directly into a receptical placed upon a [Roomba](http://giphy.com/gifs/cat-roomba-cqG5aFdTkk5ig)
 - An Arduino, connected to the raspi via serial port, listens for the end of kernel popping as let's the popper know to STOP
